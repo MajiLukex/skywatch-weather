@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1424">
+  <title>SkyWatch – Unsere Wetterstation</title>
+  <style>
+    :root {
+      --bg: #0b1424;
+      --panel: #131f32;
+      --border: #25344a;
+      --text: #f1f5fb;
+      --muted: #9aabc1;
+      --blue: #69b9ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    .container {
+      width: min(1080px, 92%);
+      margin: auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .logo {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: #1d3858;
+      font-size: 24px;
+    }
+
+    .tag {
+      color: var(--blue);
+      font-size: 11px;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #57472b;
+      background: #30291e;
+      color: #ffd18a;
+      padding: 7px 11px;
+      border-radius: 30px;
+      font-size: 12px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ffbd59;
+    }
+
+    .hero {
+      padding: 64px 0 35px;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(34px, 6vw, 60px);
+      line-height: 1.08;
+      letter-spacing: -2px;
+      margin: 15px 0;
+      max-width: 720px;
+    }
+
+    h1 span { color: var(--blue); }
+
+    .intro {
+      max-width: 600px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .overview {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 28px 0 16px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .updated {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #17263b, #111c2d);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      min-height: 175px;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: #22364e;
+      font-size: 22px;
+    }
+
+    .label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .value {
+      margin: 22px 0 5px;
+      font-size: 29px;
+      font-weight: 750;
+      letter-spacing: -1px;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .notice {
+      margin-top: 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #111f31;
+      border: 1px solid #29425d;
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .notice-icon { font-size: 25px; }
+
+    .notice strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .notice p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin: 40px 0;
+    }
+
+    .info {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      background: var(--panel);
+    }
+
+    .info p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 0;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 800px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding-top: 42px; }
+      h1 { letter-spacing: -1px; }
+      .grid { gap: 10px; }
+      .card { padding: 15px; min-height: 160px; }
+      .value { font-size: 25px; }
+      .bottom { grid-template-columns: 1fr; }
+      .brand { font-size: 19px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">☁️</div>
+        <div>
+          SKYWATCH
+          <div class="tag">LOCAL WEATHER</div>
+        </div>
+      </div>
+      <div class="status">
+        <span class="dot"></span>
+        Im Aufbau
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">Unsere eigene Wetterstation</div>
+      <h1>Das Wetter.<br><span>Direkt vor Ort.</span></h1>
+      <p class="intro">
+        Willkommen bei SkyWatch! Wir bauen unsere eigene Wetterstation,
+        um das Wetter in unserer Umgebung selbst zu messen.
+        Bald findest du hier unsere aktuellen Wetterdaten.
+      </p>
+    </section>
+
+    <section>
+      <div class="overview">
+        <h2>Aktuelle Messwerte</h2>
+        <div class="updated" id="clock">Lokale Zeit: --:--:--</div>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="card-top">
+            <span class="label">Temperatur</span>
+            <span class="icon">🌡️</span>
+          </div>
+          <div class="value">-- °C</div>
+          <div class="sub">Warte auf Sensor</div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <span class="label">Luftfeuchtigkeit</span>
+            <span class="icon">💧</span>
+          </div>
+          <div class="value">-- %</div>
+          <div class="sub">Warte auf Sensor</div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <span class="label">Windgeschwindigkeit</span>
+            <span class="icon">💨</span>
+          </div>
+          <div class="value">-- km/h</div>
+          <div class="sub">Warte auf Sensor</div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <span class="label">Luftdruck</span>
+            <span class="icon">◉</span>
+          </div>
+          <div class="value">-- hPa</div>
+          <div class="sub">Warte auf Sensor</div>
+        </article>
+      </div>
+
+      <div class="notice">
+        <div class="notice-icon">🛰️</div>
+        <div>
+          <strong>Unsere Station wird vorbereitet</strong>
+          <p>
+            Die Website ist bereits startklar. Sobald unsere Sensoren
+            angeschlossen sind, verbinden wir SkyWatch mit den echten
+            Messwerten. Die Striche sind Platzhalter und keine Messungen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bottom">
+      <div class="info">
+        <div class="eyebrow">Unser Projekt</div>
+        <h2 style="margin-top: 10px">Von uns entwickelt.</h2>
+        <p>
+          SkyWatch ist unser gemeinsames Wetterprojekt.
+          Wir bauen die Technik selbst und wollen lokale Wetterdaten
+          verständlich und übersichtlich präsentieren.
+        </p>
+      </div>
+      <div class="info">
+        <div class="eyebrow">Demnächst</div>
+        <h2 style="margin-top: 10px">Mehr Wetterdaten</h2>
+        <p>
+          Geplant sind echte Live-Messwerte, Temperaturverläufe
+          und weitere Informationen über das Wetter vor Ort.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> SkyWatch</span>
+      <span>Ein Wetterprojekt von uns – mit Neugier entwickelt.</span>
+    </div>
+  </footer>
+
+  <script>
+    function updateClock() {
+      document.getElementById("clock").textContent =
+        "Lokale Zeit: " +
+        new Date().toLocaleTimeString("de-AT");
+
+      document.getElementById("year").textContent =
+        new Date().getFullYear();
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
